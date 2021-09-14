@@ -3,6 +3,7 @@ import { schema } from 'graphql/schema'
 import cors from 'micro-cors'
 import { ApolloServer } from 'apollo-server-micro'
 import { NextApiHandler } from 'next'
+import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core"
 
 export const config = {
   api: {
@@ -13,6 +14,9 @@ export const config = {
 const apolloServer = new ApolloServer({
   schema,
   context: createContext,
+  plugins: [
+    ApolloServerPluginLandingPageGraphQLPlayground()
+  ]
 })
 
 let apolloServerHandler: NextApiHandler
