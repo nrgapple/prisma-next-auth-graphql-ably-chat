@@ -2,8 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
@@ -11,8 +11,174 @@ generator client {
   provider = "prisma-client-js"
 }
 
+model AuditLog {
+  id        Int      @id @default(autoincrement())
+  actionId  Int
+  message   String
+  createdAt DateTime @default(now()) @map(name: "created_at")
+
+  action Action @relation(fields: [actionId], references: [id])
+}
+
+model Action {
+  id        Int        @id @default(autoincrement())
+  name      String
+  createdAt DateTime   @default(now()) @map(name: "created_at")
+  AuditLog  AuditLog[]
+}
+
+model Attribute {
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  Rating    Rating[]
+}
+
+model Rating {
+  profileById  Int
+  profileForId Int
+  stars        Int
+  createdAt    DateTime @default(now()) @map(name: "created_at")
+
+  attribute  Attribute @relation(fields: [attributeId], references: [id])
+  profileBy  Profile   @relation("profileBy", fields: [profileById], references: [id])
+  profileFor Profile   @relation("profileFor", fields: [profileForId], references: [id])
+
+  attributeId Int
+  @@id([profileById, profileForId])
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  chatId    Int      @map(name: "chat_id")
+  sender    String
+  message   String
+  createdAt DateTime @default(now()) @map(name: "created_at")
+
+  chat Chat @relation(fields: [chatId], references: [id])
+}
+
+model Chat {
+  id                   Int       @id @default(autoincrement())
+  connectionReferentId Int       @map(name: "connection_referent_id")
+  connectionReferrerId Int       @map(name: "connection_referrer_id")
+  createdAt            DateTime  @default(now()) @map(name: "created_at")
+  Message              Message[]
+
+  connection Connection @relation(fields: [connectionReferentId, connectionReferrerId], references: [referentId, referrerId])
+}
+
+model Connection {
+  referentId Int   @map(name: "referent_id")
+  referrerId Int   @map(name: "referrer_id")
+  chat       Chat?
+
+  referrer Referrer @relation(fields: [referrerId], references: [id])
+  referent Referent @relation(fields: [referentId], references: [id])
+
+  @@id([referentId, referrerId])
+}
+
+model JobPosting {
+  referentId Int      @map(name: "referent_id")
+  companyId  Int      @map(name: "company_id")
+  name       String
+  url        String
+  createdAt  DateTime @default(now()) @map(name: "created_at")
+
+  referent Referent @relation(fields: [referentId], references: [id])
+  company  Company  @relation(fields: [companyId], references: [id])
+
+  @@id([referentId, companyId])
+}
+
+model Company {
+  id          Int          @id @default(autoincrement())
+  name        String
+  createdAt   DateTime     @default(now()) @map(name: "created_at")
+  referrers   Referrer[]
+  jobPostings JobPosting[]
+}
+
+model Referrer {
+  id          Int           @id @default(autoincrement())
+  profileId   Int           @map(name: "profile_id")
+  companyId   Int?           @map(name: "company_id")
+  status      ProfileStatus
+  createdAt   DateTime      @default(now()) @map(name: "created_at")
+  connections Connection[]
+
+  profile Profile @relation(fields: [profileId], references: [id])
+  company Company? @relation(fields: [companyId], references: [id])
+}
+
+model Experience {
+  id          Int      @id @default(autoincrement())
+  referentId  Int      @map(name: "referent_id")
+  name        String
+  title       String
+  description String
+  startedAt   DateTime @default(now()) @map(name: "started_at")
+  endedAt     DateTime @default(now()) @map(name: "ended_at")
+  createdAt   DateTime @default(now()) @map(name: "created_at")
+  referent    Referent @relation(fields: [referentId], references: [id])
+}
+
+model Referent {
+  id          Int           @id @default(autoincrement())
+  profileId   Int           @map(name: "profile_id")
+  status      ProfileStatus
+  bio         String?
+  yearsExp    Int           @default(0) @map(name: "years_experience")
+  createdAt   DateTime      @default(now()) @map(name: "created_at")
+  experiences Experience[]
+  jobPostings JobPosting[]
+  connections Connection[]
+
+  profile Profile @relation(fields: [profileId], references: [id])
+}
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  profileId Int      @map(name: "profile_id")
+  message   String
+  createdAt DateTime @default(now()) @map(name: "created_at")
+
+  profile Profile @relation(fields: [profileId], references: [id])
+}
+
+model Profile {
+  id            Int            @id @default(autoincrement())
+  userId        Int            @map(name: "user_id")
+  type          ReferType
+  createdAt     DateTime       @default(now()) @map(name: "created_at")
+  notifications Notification[]
+  referent      Referent?
+  referrer      Referrer?
+  ratingsFor    Rating[]       @relation("profileFor")
+  ratingsBy     Rating[]       @relation("profileBy")
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+enum ReferType {
+  referrer
+  referent
+}
+
+enum UserStatus {
+  active
+  blocked
+}
+
+enum ProfileStatus {
+  looking
+  hidden
+  disabled
+}
+
 model Account {
-  id                 Int       @default(autoincrement()) @id
+  id                 Int       @id @default(autoincrement())
   compoundId         String    @unique @map(name: "compound_id")
   userId             Int       @map(name: "user_id")
   providerType       String    @map(name: "provider_type")
@@ -24,15 +190,15 @@ model Account {
   createdAt          DateTime  @default(now()) @map(name: "created_at")
   updatedAt          DateTime  @default(now()) @map(name: "updated_at")
 
+
   @@index([providerAccountId], name: "providerAccountId")
   @@index([providerId], name: "providerId")
   @@index([userId], name: "userId")
-
   @@map(name: "accounts")
 }
 
 model Session {
-  id           Int      @default(autoincrement()) @id
+  id           Int      @id @default(autoincrement())
   userId       Int      @map(name: "user_id")
   expires      DateTime
   sessionToken String   @unique @map(name: "session_token")
@@ -44,19 +210,20 @@ model Session {
 }
 
 model User {
-  id            Int       @default(autoincrement()) @id
+  id            Int       @id @default(autoincrement())
   name          String?
   email         String?   @unique
   emailVerified DateTime? @map(name: "email_verified")
   image         String?
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @default(now()) @map(name: "updated_at")
+  profile       Profile?
 
   @@map(name: "users")
 }
 
 model VerificationRequest {
-  id         Int      @default(autoincrement()) @id
+  id         Int      @id @default(autoincrement())
   identifier String
   token      String   @unique
   expires    DateTime

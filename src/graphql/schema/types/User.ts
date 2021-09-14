@@ -1,4 +1,5 @@
 import { objectType, extendType, stringArg, nonNull } from 'nexus'
+import { getSession } from 'next-auth/client'
 
 export const User = objectType({
   name: 'User',
@@ -17,12 +18,10 @@ export const UserQueries = extendType({
   definition: (t) => {
     t.field('user', {
       type: 'User',
-      args: {
-        userId: nonNull(stringArg()),
-      },
-      resolve: (_, args, ctx) => {
-        return ctx.prisma.user.findUnique({
-          where: { id: Number(args.userId) },
+      resolve: async (_, __, { prisma, req }) => {
+        const session = await getSession({ req })
+        return prisma.user.findUnique({
+          where: { id: session.user.id },
         })
       },
     })

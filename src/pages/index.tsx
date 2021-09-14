@@ -11,9 +11,22 @@ export const exampleQuery = gql`
   }
 `
 
+export const getUserQuery = gql`
+  query userInfo {
+    user {
+      id
+    }
+  }
+`
+
 const IndexPage = () => {
   const [session, loading] = useSession()
-  const { data, loading: queryLoading, refetch } = useQuery(exampleQuery, { notifyOnNetworkStatusChange: true })
+  const {
+    data: userData,
+    loading: userQueryLoading,
+    error: userQueryError,
+    refetch,
+  } = useQuery(getUserQuery, { notifyOnNetworkStatusChange: true })
   if (loading) {
     return (
       <div className="flex justify-center mt-8 text-center">
@@ -23,6 +36,9 @@ const IndexPage = () => {
       </div>
     )
   }
+
+  console.log(userData)
+  console.log(userQueryError)
 
   if (session) {
     return (
@@ -41,7 +57,7 @@ const IndexPage = () => {
           )}
           <div className="text-lg mb-2">Hello, {session.user.email ?? session.user.name}</div>
           <div className="mb-2">
-            gql test query: {queryLoading ? 'fetching...' : data?.example?.message}
+            gql test query: {userQueryLoading ? 'fetching...' : userData?.user.email}
             <button className="btn-blue ml-2" onClick={() => refetch()}>
               Refetch!
             </button>
