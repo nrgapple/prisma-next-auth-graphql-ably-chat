@@ -42,4 +42,19 @@ const options = {
   }),
 
   secret: process.env.AUTH_SECRET,
+  session: {
+    jwt: true,
+  },
+  callbacks: {
+    jwt: async (token, user) => {
+      if (user) {
+        token.uid = user.id
+      }
+      return Promise.resolve(token)
+    },
+    session: async (session, user) => {
+      session.user.id = user.uid
+      return Promise.resolve(session)
+    },
+  },
 }

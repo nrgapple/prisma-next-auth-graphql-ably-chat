@@ -103,13 +103,13 @@ model Company {
 model Referrer {
   id          Int           @id @default(autoincrement())
   profileId   Int           @map(name: "profile_id")
-  companyId   Int           @map(name: "company_id")
+  companyId   Int?           @map(name: "company_id")
   status      ProfileStatus
   createdAt   DateTime      @default(now()) @map(name: "created_at")
   connections Connection[]
 
   profile Profile @relation(fields: [profileId], references: [id])
-  company Company @relation(fields: [companyId], references: [id])
+  company Company? @relation(fields: [companyId], references: [id])
 }
 
 model Experience {
@@ -129,7 +129,7 @@ model Referent {
   profileId   Int           @map(name: "profile_id")
   status      ProfileStatus
   bio         String?
-  yearsExp    Int           @map(name: "years_experience")
+  yearsExp    Int           @default(0) @map(name: "years_experience")
   createdAt   DateTime      @default(now()) @map(name: "created_at")
   experiences Experience[]
   jobPostings JobPosting[]
