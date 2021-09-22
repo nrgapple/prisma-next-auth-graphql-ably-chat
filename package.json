@@ -36,10 +36,10 @@
   "author": "Taras Protchenko",
   "license": "ISC",
   "dependencies": {
-    "micro": "9.3.4",
-    "micro-cors": "0.1.1",
     "@apollo/client": "3.4.11",
+    "@hqoss/monads": "^0.5.0",
     "@prisma/client": "3.0.2",
+    "@reduxjs/toolkit": "^1.6.1",
     "@tailwindcss/forms": "0.3.3",
     "@tailwindcss/typography": "0.4.1",
     "apollo-server-micro": "3.3.0",
@@ -47,11 +47,14 @@
     "graphql-middleware": "6.1.6",
     "graphql-scalars": "1.10.1",
     "graphql-shield": "7.5.0",
+    "micro": "9.3.4",
+    "micro-cors": "0.1.1",
     "next": "11.1.2",
     "next-auth": "3.29.0",
     "nexus": "1.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-redux": "^7.2.5",
     "tailwindcss": "^2.2.15"
   },
   "devDependencies": {

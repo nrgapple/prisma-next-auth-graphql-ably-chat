@@ -58,21 +58,17 @@ model Message {
   chat Chat @relation(fields: [chatId], references: [id])
 }
 
+
 model Chat {
   id                   Int       @id @default(autoincrement())
-  connectionReferentId Int       @map(name: "connection_referent_id")
-  connectionReferrerId Int       @map(name: "connection_referrer_id")
   createdAt            DateTime  @default(now()) @map(name: "created_at")
   Message              Message[]
-
-  connection Connection @relation(fields: [connectionReferentId, connectionReferrerId], references: [referentId, referrerId])
+  profiles Profile[]
 }
 
 model Connection {
   referentId Int   @map(name: "referent_id")
   referrerId Int   @map(name: "referrer_id")
-  chat       Chat?
-
   referrer Referrer @relation(fields: [referrerId], references: [id])
   referent Referent @relation(fields: [referentId], references: [id])
 
@@ -157,6 +153,7 @@ model Profile {
   referrer      Referrer?
   ratingsFor    Rating[]       @relation("profileFor")
   ratingsBy     Rating[]       @relation("profileBy")
+  chats Chat[]
 
   user User @relation(fields: [userId], references: [id])
 }

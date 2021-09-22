@@ -1,7 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { signIn, signOut, useSession } from 'next-auth/client'
 import { useQuery, gql } from '@apollo/client'
 import Image from 'next/image'
+import { loadUser } from './app.slice'
+import { store } from 'state/store'
+import { loadUserIntoApp, User } from 'types/user'
+import image from 'next/image'
+import { useStore, useStoreWithInitializer } from 'state/storeHooks'
 
 export const exampleQuery = gql`
   query example {
@@ -15,18 +20,35 @@ export const getUserQuery = gql`
   query userInfo {
     user {
       id
+      email
     }
   }
 `
 
 const IndexPage = () => {
   const [session, loading] = useSession()
+  const { loading: appLoading, user } = useStore(({ app }) => app)
+
+  useEffect(() => {
+    if (session) {
+      const {
+        user: { name, image, email },
+      } = session
+      console.log('here')
+
+      loadUserIntoApp({ name, image, email } as User)
+    }
+  }, [session])
+
   const {
     data: userData,
     loading: userQueryLoading,
     error: userQueryError,
     refetch,
   } = useQuery(getUserQuery, { notifyOnNetworkStatusChange: true })
+
+  console.log('userData', userData)
+
   if (loading) {
     return (
       <div className="flex justify-center mt-8 text-center">
@@ -37,8 +59,10 @@ const IndexPage = () => {
     )
   }
 
-  console.log(userData)
-  console.log(userQueryError)
+  user.match({
+    none: () => console.log('none'),
+    some: (user) => console.log(user),
+  })
 
   if (session) {
     return (
