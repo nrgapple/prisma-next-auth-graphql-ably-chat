@@ -4,7 +4,7 @@ import { isAuthenticated } from './rules/isAuthenticated'
 export const permissions = shield({
   Query: {
     user: isAuthenticated,
-    chat: isAuthenticated,
+    messages: isAuthenticated,
   },
   Mutation: {
     '*': isAuthenticated,

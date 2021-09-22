@@ -1,6 +1,11 @@
 import { gql, useQuery } from '@apollo/client'
+import ChatBox from 'components/ChatBox'
 import { useSession } from 'next-auth/client'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
+import { store } from 'state/store'
+import { useStore } from 'state/storeHooks'
+import { Chat } from 'types/chat'
+import { loadChats } from './chat.slice'
 
 export const getUserChatsQuery = gql`
   query userChats {
@@ -9,35 +14,38 @@ export const getUserChatsQuery = gql`
         chats {
           id
         }
-        id
       }
     }
   }
 `
 
-export const getMessagesQuery = gql`
-  query getMessages($chatId: ID!) {
-    messages(chatId: $chatId) {
-      id
-      message
-      sender
-    }
-  }
-`
-
 const ChatPage = () => {
-  const [session, loading] = useSession()
   const { data: chatsData } = useQuery(getUserChatsQuery, { notifyOnNetworkStatusChange: true })
+  const { loading, chats } = useStore(({ chat }) => chat)
 
-  console.log(chatsData)
+  useEffect(() => {
+    if (chatsData) {
+      loadChatsFromQuery(chatsData.user.profile.chats)
+    }
+  }, [chatsData])
 
-  return <></>
-}
+  if (chats.isSome()) {
+    console.log(chats.unwrap())
+  }
 
-const ChatBox = ({ chatId }: { chatId: number }) => {
-  const { data: messagesData } = useQuery(getMessagesQuery, { variables: chatId })
-
-  return <></>
+  return (
+    <div className="container">
+      <div></div>
+      {chats.match({
+        none: () => <></>,
+        some: (c) => <div>{<ChatBox chatId={c[0].id} />}</div>,
+      })}
+    </div>
+  )
 }
 
 export default ChatPage
+
+function loadChatsFromQuery(chats: Chat[]) {
+  store.dispatch(loadChats(chats))
+}
