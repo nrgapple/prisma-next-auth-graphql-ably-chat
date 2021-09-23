@@ -25,7 +25,7 @@ model Message {
 model Chat {
   id                   Int       @id @default(autoincrement())
   createdAt            DateTime  @default(now()) @map(name: "created_at")
-  Message              Message[]
+  messages              Message[]
   profiles Profile[]
 }
 

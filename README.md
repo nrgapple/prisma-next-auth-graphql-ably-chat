@@ -18,10 +18,11 @@ prisma-next-auth-graphql-starter](https://github.com/wangel13/prisma-next-auth-g
     ```shell
     docker-compose up -d
     ```
+
     <sub>don't forget about [`.env`](#-env)</sub>
-    
+
     Also, you can use any DB supported by Prisma([docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema/data-sources/))
-    
+
 1.  **Start developing.**
 
     Navigate into your new site’s directory install modules and start it up.
@@ -30,7 +31,7 @@ prisma-next-auth-graphql-starter](https://github.com/wangel13/prisma-next-auth-g
     npm i
     npm run dev
     ```
-    
+
 1.  **Open the source code and start editing!**
 
     Your site is now running at [localhost:3000](http://localhost:3000)!
@@ -60,7 +61,7 @@ Starter use [Prisma](https://www.prisma.io/docs/) for db queries.
       updatedAt  DateTime @updatedAt
     }
     ```
-    
+
 1.  **Generate migration files.**
 
     Use Prisma migrate tool.
@@ -68,9 +69,9 @@ Starter use [Prisma](https://www.prisma.io/docs/) for db queries.
     ```shell
     prisma migrate dev --create-only --name init
     ```
-    
+
     You can find migration files in `prisma/migrations`.
-    
+
 1.  **Apply migration.**
 
     Use Prisma migrate tool.
@@ -78,13 +79,12 @@ Starter use [Prisma](https://www.prisma.io/docs/) for db queries.
     ```shell
     prisma migrate dev
     ```
-    
+
 1.  **Generate new fresh Prisma client.**
 
     ```shell
     npm run generate
     ```
-      
 
 More info about Prisma Migrate you can find in [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-migrate)
 
@@ -116,7 +116,6 @@ To use it you need to install browser extension:
 
 [Download for Firefox](https://addons.mozilla.org/firefox/addon/apollo-developer-tools/) | [Download for Chrome](https://chrome.google.com/webstore/detail/apollo-client-developer-t/jdkknkkbebbapilgoeccciglkfbmbnfm)
 
-
 ## 📜 ENV
 
 Use `.env.local` on production or `.env.development` on dev. [Read more](https://nextjs.org/docs/basic-features/environment-variables)
@@ -131,11 +130,6 @@ NEXTAUTH_URL="http://localhost:3000"
 
 PROVIDER_GITHUB_ID=""
 PROVIDER_GITHUB_SECRET=""
-PROVIDER_SMTP_HOST=""
-PROVIDER_SMTP_PORT=""
-PROVIDER_SMTP_USER=""
-PROVIDER_SMTP_PASSWORD=""
-PROVIDER_SMTP_FROM=""
 ```
 
 ## 💫 Deploy

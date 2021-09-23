@@ -3,12 +3,22 @@ const prisma = new PrismaClient()
 
 const userData: Prisma.UserCreateInput[] = [
   {
-    email: 'nick@test.com',
-    name: 'nick',
+    email: 'john@test.com',
+    name: 'john',
+    profile: {
+      create: {
+        chats: {
+          create: {},
+        },
+      },
+    },
   },
   {
     email: 'ruddy@test.com',
     name: 'ruddy',
+    profile: {
+      create: {},
+    },
   },
 ]
 
