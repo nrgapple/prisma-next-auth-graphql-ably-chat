@@ -49,6 +49,8 @@ prisma-next-auth-graphql-starter](https://github.com/wangel13/prisma-next-auth-g
 
 **🤝 Lets make this a learning tool 🛠 together! Open some questions 🙋‍♂️ over in the [Discussions](https://github.com/nrgapple/prisma-next-auth-graphql-ably-chat/discussions) tab! Ask questions, suggest features, and chat around. We truly believe this to be the best stack for scaling your app from free 🆓 to millions of users. 🚀**
 
+---
+
 ## 🚀 Getting started
 
 1.  **Setup a database.**
