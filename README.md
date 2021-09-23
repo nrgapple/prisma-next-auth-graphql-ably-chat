@@ -1,5 +1,5 @@
 <h1 align="center">
-  Fullstack starter with next-auth, prisma, next.js and graphql-shield
+  Fullstack starter with next-auth, prisma, next.js, graphql-shield, ably channels, profiles, typescript, and more!
 </h1>
 
 [![typescript](https://img.shields.io/badge/typescript-3178c6.svg?style=flat-square)](https://github.com/microsoft/TypeScript)
@@ -8,6 +8,8 @@
 
 _A special thanks to [@wangel13](https://github.com/wangel13) for their great project: [
 prisma-next-auth-graphql-starter](https://github.com/wangel13/prisma-next-auth-graphql-starter)!_
+
+**Lets make this a learn tool together! Open some questions over in the [Discussions](https://github.com/nrgapple/prisma-next-auth-graphql-ably-chat/discussions) tab! Ask questions, suggest features, and chat around.
 
 ## 🚀 Getting started
 
