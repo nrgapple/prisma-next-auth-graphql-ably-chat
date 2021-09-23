@@ -1,16 +1,15 @@
-import { None, Option, Some } from '@hqoss/monads'
 import { Message } from 'types/chat'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface ChatBoxState {
   loading: boolean
-  messages: Option<Message[]>
+  messages: Message[]
   currMessage: string
 }
 
 const initialState: ChatBoxState = {
   loading: true,
-  messages: None,
+  messages: [],
   currMessage: '',
 }
 
@@ -19,27 +18,18 @@ const slice = createSlice({
   initialState,
   reducers: {
     loadMessages: (state, { payload: messages }: PayloadAction<Message[]>) => {
-      state.messages = Some(messages)
+      state.messages = messages
       state.loading = false
     },
     updateCurrMessage: (state, { payload: text }: PayloadAction<string>) => {
       state.currMessage = text
     },
     addMessage: (state, { payload: message }: PayloadAction<Message>) => {
-      state.messages = Some(
-        state.messages.match({
-          none: () => [message],
-          some: (messages) => [message, ...messages],
-        }),
-      )
+      // sort messages in assending order of time.
+      state.messages = [...state.messages, message].sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime())
     },
     removeMessage: (state, { payload: message }: PayloadAction<Message>) => {
-      state.messages = Some(
-        state.messages.match({
-          none: () => [],
-          some: (messages) => messages.filter((x) => x.id !== message.id),
-        }),
-      )
+      state.messages = state.messages.filter((x) => x.id !== message.id)
     },
   },
 })

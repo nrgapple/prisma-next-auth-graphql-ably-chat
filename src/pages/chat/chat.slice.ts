@@ -4,12 +4,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface ChatsState {
   loading: boolean
-  chats: Option<Chat[]>
+  chats: Chat[]
 }
 
 const initialState: ChatsState = {
   loading: true,
-  chats: None,
+  chats: [],
 }
 
 const slice = createSlice({
@@ -17,24 +17,14 @@ const slice = createSlice({
   initialState,
   reducers: {
     loadChats: (state, { payload: chats }: PayloadAction<Chat[]>) => {
-      state.chats = Some(chats)
+      state.chats = chats
       state.loading = false
     },
     addChat: (state, { payload: chat }: PayloadAction<Chat>) => {
-      state.chats = Some(
-        state.chats.match({
-          none: () => [chat],
-          some: (chats) => [chat, ...chats],
-        }),
-      )
+      state.chats = [chat, ...state.chats]
     },
     removeChat: (state, { payload: chat }: PayloadAction<Chat>) => {
-      state.chats = Some(
-        state.chats.match({
-          none: () => [],
-          some: (chats) => chats.filter((x) => x.id !== chat.id),
-        }),
-      )
+      state.chats = state.chats.filter((x) => x.id !== chat.id)
     },
   },
 })

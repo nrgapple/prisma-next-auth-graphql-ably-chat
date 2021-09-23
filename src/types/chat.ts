@@ -7,7 +7,7 @@ export interface Chat {
 }
 
 export interface Message {
-  id: number
+  id: number | string
   createdAt: Date
   sender: User
   message: string

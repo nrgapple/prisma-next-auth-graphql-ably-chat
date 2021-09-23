@@ -1,5 +1,6 @@
 import { loadUser } from 'pages/app.slice'
 import { store } from 'state/store'
+import { Chat } from './chat'
 
 export interface PublicUser {
   name: string
@@ -13,17 +14,6 @@ export interface User extends PublicUser {
 
 export interface Profile {
   chats?: Chat[]
-}
-
-export interface Chat {
-  id: number
-  messages?: Message[]
-}
-
-export interface Message {
-  id: number
-  message: string
-  sender: PublicUser
 }
 
 export function loadUserIntoApp(user: User) {

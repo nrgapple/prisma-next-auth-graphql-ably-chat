@@ -44,6 +44,7 @@
     "@prisma/client": "3.0.2",
     "@reduxjs/toolkit": "^1.6.1",
     "@types/ramda": "^0.27.44",
+    "ably": "^1.2.14",
     "apollo-server-micro": "3.3.0",
     "framer-motion": "^4",
     "graphql": "15.5.3",

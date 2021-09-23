@@ -1,10 +1,13 @@
 import { gql, useQuery } from '@apollo/client'
-import ChatBox from 'components/ChatBox'
 import { useEffect, useMemo } from 'react'
 import { store } from 'state/store'
 import { useStore } from 'state/storeHooks'
 import { Chat } from 'types/chat'
 import { loadChats } from './chat.slice'
+import dynamic from 'next/dynamic'
+import { Spinner } from '@chakra-ui/react'
+
+const ChatBox = dynamic(() => import('../../components/ChatBox'), { ssr: false })
 
 export const getUserChatsQuery = gql`
   query userChats {
@@ -28,17 +31,16 @@ const ChatPage = () => {
     }
   }, [chatsData])
 
-  if (chats.isSome()) {
-    console.log(chats.unwrap())
-  }
+  if (loading) return <Spinner />
 
   return (
     <div className="container">
       <div></div>
-      {chats.match({
-        none: () => <></>,
-        some: (c) => <div>{<ChatBox chatId={c[0].id} />}</div>,
-      })}
+      {chats.length && (
+        <div>
+          <ChatBox chatId={chats[0].id} />
+        </div>
+      )}
     </div>
   )
 }
