@@ -1,7 +1,7 @@
 {
-  "name": "prisma-next-auth-graphql-starter",
+  "name": "prisma-next-auth-graphql-ably-chat",
   "version": "3.0.0",
-  "description": "",
+  "description": "An fully working example of using prisma, nextjs, graphql, and ably. The project is built in typescript and has full models for profiles, chats, auth, and messages.",
   "scripts": {
     "start": "next start",
     "dev": "next",
@@ -33,8 +33,8 @@
     "fullstack",
     "auth"
   ],
-  "author": "Taras Protchenko",
-  "license": "ISC",
+  "author": "nrgapple & mattruddy",
+  "license": "MIT",
   "dependencies": {
     "@apollo/client": "3.4.11",
     "@chakra-ui/react": "^1.6.8",
@@ -43,8 +43,6 @@
     "@hqoss/monads": "^0.5.0",
     "@prisma/client": "3.0.2",
     "@reduxjs/toolkit": "^1.6.1",
-    "@tailwindcss/forms": "0.3.3",
-    "@tailwindcss/typography": "0.4.1",
     "@types/ramda": "^0.27.44",
     "apollo-server-micro": "3.3.0",
     "framer-motion": "^4",
@@ -60,8 +58,7 @@
     "ramda": "^0.27.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-redux": "^7.2.5",
-    "tailwindcss": "^2.2.15"
+    "react-redux": "^7.2.5"
   },
   "devDependencies": {
     "@types/next-auth": "3.15.0",
