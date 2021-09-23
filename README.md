@@ -1,6 +1,33 @@
 <h1 align="center">
-  Fullstack starter with next-auth, prisma, next.js, graphql-shield, ably channels, profiles, typescript, Chakra and more!
+  Fullstack starter chat app with next-auth, prisma, next.js, graphql-shield, ably channels, profiles, typescript, Chakra and more!
 </h1>
+
+---
+
+## 🚧🚧🚧🦺 Under Construction 🦺🚧🚧🚧🚧
+
+<details>
+  <summary>Status</summary>
+
+### Done
+
+- [x] Integrate prisma
+- [x] Create db models
+- [x] Set up next-auth
+- [x] Create graphql queries
+- [x] Integrate Chakra
+
+### Todo
+
+- [ ] Integrate ably for realtime chat
+- [ ] Add jest (others?) testing
+- [ ] Landing page `#/`
+- [ ] Chat by username
+- [ ] Profile Page (edit)
+</details>
+
+
+---
 
 [![typescript](https://img.shields.io/badge/typescript-3178c6.svg?style=flat-square)](https://github.com/microsoft/TypeScript)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
