@@ -31,6 +31,15 @@
 
 ---
 
+## Stack
+
+![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
+![GraphQL](https://img.shields.io/badge/-GraphQL-E10098?style=for-the-badge&logo=graphql&logoColor=white)
+![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![Chakra](https://img.shields.io/badge/-Chakra%20UI-24e0d1.svg?style=for-the-badge)
+![Ably](https://img.shields.io/badge/Ably-b32805.svg?style=for-the-badge)
+
 [![typescript](https://img.shields.io/badge/typescript-3178c6.svg?style=flat-square)](https://github.com/microsoft/TypeScript)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![linter: eslint](https://img.shields.io/badge/linter-eslint-4B32C3.svg?style=flat-square)](https://github.com/eslint/eslint)
@@ -168,3 +177,9 @@ PROVIDER_GITHUB_SECRET=""
 Before deploy, you need to set up a database.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/wangel13/prisma-next-auth-graphql-starter)
+
+## 🤝 Contributions
+
+<a href="https://github.com/nrgapple/prisma-next-auth-graphql-ably-chat/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=nrgapple/prisma-next-auth-graphql-ably-chat" />
+</a>
