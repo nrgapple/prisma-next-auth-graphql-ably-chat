@@ -6,6 +6,9 @@
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![linter: eslint](https://img.shields.io/badge/linter-eslint-4B32C3.svg?style=flat-square)](https://github.com/eslint/eslint)
 
+_A special thanks to [@wangel13](https://github.com/wangel13) for their great project: [
+prisma-next-auth-graphql-starter](https://github.com/wangel13/prisma-next-auth-graphql-starter)!_
+
 ## 🚀 Getting started
 
 1.  **Setup a database.**
