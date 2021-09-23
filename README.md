@@ -18,13 +18,14 @@
 - [x] Set up next-auth
 - [x] Create graphql queries
 - [x] Integrate Chakra
+- [x] Integrate ably for realtime chat
 
 ### Todo
 
-- [ ] Integrate ably for realtime chat
 - [ ] Add jest (others?) testing
 - [ ] Landing page `#/`
 - [ ] Chat by username
+- [ ] Chat rooms
 - [ ] Profile Page (edit)
 </details>
 
