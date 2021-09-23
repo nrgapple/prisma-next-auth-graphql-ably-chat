@@ -106,6 +106,10 @@ export const MessagesMutations = extendType({
   definition: (t) => {
     t.field('createMessage', {
       type: Message,
+      args: {
+        chatId: intArg(),
+        message: stringArg(),
+      },
       resolve: async (_, { chatId, message }: { chatId: number; message: string }, { prisma, req }) => {
         const session = await getSession({ req })
         return prisma.message.create({

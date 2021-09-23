@@ -1,5 +1,10 @@
-import { gql, useQuery } from '@apollo/client'
+import { gql, useMutation, useQuery } from '@apollo/client'
+import { Button } from '@chakra-ui/button'
+import { Input } from '@chakra-ui/input'
+import { ChangeEvent } from 'react'
+import { store } from 'state/store'
 import { useStore } from 'state/storeHooks'
+import { addMessage, updateCurrMessage } from './chatBox.slice'
 
 export const getMessagesQuery = gql`
   query getMessages($chatId: Int) {
@@ -12,7 +17,7 @@ export const getMessagesQuery = gql`
 `
 
 export const createMessageQuery = gql`
-  mutation createMessage($chatId: ID!, $message: String) {
+  mutation createMessage($chatId: Int!, $message: String) {
     createMessage(chatId: $chatId, message: $message) {
       chatId
       message
@@ -22,7 +27,8 @@ export const createMessageQuery = gql`
 
 const ChatBox = ({ chatId }: { chatId: number }) => {
   const { data: messagesData } = useQuery(getMessagesQuery, { variables: chatId })
-  const { loading: chatBoxLoading, messages, currMessage } = useStore(({ chatBox }) => chatBox)
+  const [createMessage, { data }] = useMutation(createMessageQuery)
+  const { messages, currMessage } = useStore(({ chatBox }) => chatBox)
 
   return (
     <div className="chat-container">
@@ -42,11 +48,22 @@ const ChatBox = ({ chatId }: { chatId: number }) => {
         })}
       </div>
       <div className="new-message-container">
-        <input className="message-body" />
-        <div>Send</div>
+        <Input value={currMessage} onChange={handleCurrMessageChange} />
+        <Button
+          onClick={() => {
+            createMessage({ variables: { chatId, message: currMessage } })
+          }}
+        >
+          Send
+        </Button>
       </div>
     </div>
   )
+}
+
+function handleCurrMessageChange(event: ChangeEvent<HTMLInputElement>) {
+  event.preventDefault()
+  store.dispatch(updateCurrMessage(event.currentTarget.value))
 }
 
 export default ChatBox

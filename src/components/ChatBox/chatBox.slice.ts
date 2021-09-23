@@ -44,6 +44,6 @@ const slice = createSlice({
   },
 })
 
-export const { loadMessages, addMessage, removeMessage } = slice.actions
+export const { loadMessages, addMessage, removeMessage, updateCurrMessage } = slice.actions
 
 export default slice.reducer
