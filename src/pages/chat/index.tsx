@@ -26,12 +26,12 @@ const ChatPage = () => {
   const { loading, chats } = useStore(({ chat }) => chat)
 
   useEffect(() => {
-    if (chatsData) {
+    if (chatsData && chatsData.user?.profile) {
       loadChatsFromQuery(chatsData.user.profile.chats)
     }
   }, [chatsData])
 
-  if (loading) return <Spinner />
+  //if (loading) return <Spinner />
 
   return (
     <div className="container">

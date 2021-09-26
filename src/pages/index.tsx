@@ -34,8 +34,6 @@ const IndexPage = () => {
       const {
         user: { name, image, email },
       } = session
-      console.log('here')
-
       loadUserIntoApp({ name, image, email } as User)
     }
   }, [session])
@@ -47,8 +45,6 @@ const IndexPage = () => {
     refetch,
   } = useQuery(getUserQuery, { notifyOnNetworkStatusChange: true })
 
-  console.log('userData', userData)
-
   if (loading) {
     return (
       <div className="flex justify-center mt-8 text-center">
@@ -58,11 +54,6 @@ const IndexPage = () => {
       </div>
     )
   }
-
-  user.match({
-    none: () => console.log('none'),
-    some: (user) => console.log(user),
-  })
 
   if (session) {
     return (
