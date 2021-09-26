@@ -26,7 +26,7 @@ const slice = createSlice({
     },
     addMessage: (state, { payload: message }: PayloadAction<Message>) => {
       // sort messages in assending order of time.
-      state.messages = [...state.messages, message].sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime())
+      state.messages = [...state.messages, message]
     },
     removeMessage: (state, { payload: message }: PayloadAction<Message>) => {
       state.messages = state.messages.filter((x) => x.id !== message.id)

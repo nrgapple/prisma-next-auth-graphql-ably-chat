@@ -15,6 +15,8 @@ export function useChatBox(chatId: number) {
   // Use ably.connection.id to check if message.connectionId matches yours.
   const [channel, ably] = useChannel('chat-demo', handleAblyMessage)
 
+  channel.subscribe((msg) => console.log(msg))
+
   useEffect(() => {
     if (messagesData) {
       store.dispatch(
@@ -59,7 +61,7 @@ function handleAblyMessage(msg: Types.Message) {
       id: msg.id,
       createdAt: new Date(msg.timestamp),
       sender: null,
-      message: msg.encoding,
+      message: msg.data,
     } as Message),
   )
 }

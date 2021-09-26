@@ -29,7 +29,7 @@ export const createMessageQuery = gql`
 
 const ChatBox = ({ chatId }: { chatId: number }) => {
   const { messages, currMessage, handleKeyPress, sendMessage } = useChatBox(chatId)
-  console.log({ currMessage })
+
   return (
     <div className="chat-container">
       <div className="messages-container">
